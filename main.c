@@ -347,6 +347,32 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 
+void LoadPattern(int pattern_number ){ // switch ladder to display a certain pattern based on the pattern number
+	switch (pattern_number){
+		case 1:
+			pattern1();
+			break;
+		case 2:
+			pattern2();
+			break;
+		case 3:
+			pattern3();
+			break;
+		case 4:
+			pattern4();
+			break;
+		case 5:
+			pattern5();
+			break;
+		case 6:
+			pattern6();
+			break;
+		case 7:
+			pattern7();
+			break;
+	}
+}
+
 // Timer rolled over
 void TIM16_IRQHandler(void)
 {
