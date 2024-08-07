@@ -44,7 +44,9 @@ TIM_HandleTypeDef htim16;
 
 /* USER CODE BEGIN PV */
 // TODO: Define input variables
-
+int btn = -1;
+int prevBtnState[4] = {1, 1, 1, 1};  // Array to store previous button states
+int num = 1;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -97,15 +99,47 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   HAL_TIM_Base_Start_IT(&htim16);
   while (1)
-  {
-    /* USER CODE END WHILE */
+    {
+      /* USER CODE END WHILE */
 
-    /* USER CODE BEGIN 3 */
-    // TODO: Check pushbuttons to change timer delay
+      /* USER CODE BEGIN 3 */
+      // TODO: Check pushbuttons to change timer delay
 
+  	  // array to store current button states
+  	  int currentBtnState[4] = { HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0), HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_1), HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_2),HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_3)};
 
-  }
-  /* USER CODE END 3 */
+  	  	    for (int i = 0; i < 4; i++) {
+  	  	        if (currentBtnState[i] == 0 && prevBtnState[i] == 1) {  // Button press detected (assuming 0 is on and 1 is off)
+  	  	            btn = i; // if a button was not pressed before(1) and it is now pressed (0) then btn will be set to that button number
+  	  	        }
+  	  	        prevBtnState[i] = currentBtnState[i]; // its current state now becomes its previous state
+  	  	    	}
+  	  	        if (btn == 0)
+  	  	        {
+  	  	        	ChangeTimerCycleDelay(500); // change delay to 0.5s when SW0 is pressed
+
+  	  	        }
+  	  	        else if (btn == 1)
+  	  	        {
+  	  	        	ChangeTimerCycleDelay(2000); // change delay to 2s when SW1 is pressed
+  	  	        }
+  	  	        else if (btn == 2)
+  	  	        {
+  	  	        	ChangeTimerCycleDelay(1000); // change delay to 1s when SW2 is pressed
+  	  	        }
+  	  	        else if (btn == 3) // when SW3 is pressed, we want to reset the pattern to start at pattern 1
+  	  	        {
+  	  	        	if ((currentBtnState[3] == 0 && prevBtnState[3] == 1) || HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_3) == GPIO_PIN_RESET) {
+  	  	        		num=1; // first part stops it from resetting num to 1 every time runs this part
+  	  	        		//second part allows you to be able to reset consecutively
+  	  	        	}
+
+  	  	        }
+  	  	        else{
+  	  	        	ChangeTimerCycleDelay(1000); // default timer delay is set to 1s
+  	  	        }
+    }
+    /* USER CODE END 3 */
 }
 
 /**
