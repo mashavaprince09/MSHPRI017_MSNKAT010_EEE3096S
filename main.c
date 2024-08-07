@@ -346,6 +346,36 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+
+void resetpattern(){
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7, 0);
+}
+void pattern1(){
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_4 |  GPIO_PIN_7, 1);
+}
+void pattern2(){
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_3 | GPIO_PIN_6, 1);
+}
+void pattern3(){
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0 | GPIO_PIN_2 | GPIO_PIN_5, 1);
+}
+void pattern4(){
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1 | GPIO_PIN_4, 1);
+}
+void pattern5(){
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0 | GPIO_PIN_3, 1);
+}
+void pattern6(){
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_2 | GPIO_PIN_3, 1);
+}
+void pattern7(){
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, 1);
+}
+void pattern8(){
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, 1);
+}
+
 void ChangeTimerCycleDelay(int delay) {
     HAL_TIM_Base_Stop(&htim16); // stop the timer
     __HAL_TIM_SET_AUTORELOAD(&htim16, delay-1); // change thhe delay
@@ -384,8 +414,16 @@ void TIM16_IRQHandler(void)
     HAL_TIM_IRQHandler(&htim16);
 
     // TODO: Change LED pattern
-}
 
+
+    resetpattern(); //turn off all LEDs
+
+    if (num>7){ // reset pattern number when it exceeds 7
+    	num = 1;
+    }
+    LoadPattern(num); // display a pattern based on num
+    num+=1; // increase num to display next pattern
+}
 /* USER CODE END 4 */
 
 /**
