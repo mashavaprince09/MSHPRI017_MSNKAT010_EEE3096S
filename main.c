@@ -346,7 +346,11 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-
+void ChangeTimerCycleDelay(int delay) {
+    HAL_TIM_Base_Stop(&htim16); // stop the timer
+    __HAL_TIM_SET_AUTORELOAD(&htim16, delay-1); // change thhe delay
+    HAL_TIM_Base_Start(&htim16); //start the timer
+}
 void LoadPattern(int pattern_number ){ // switch ladder to display a certain pattern based on the pattern number
 	switch (pattern_number){
 		case 1:
