@@ -114,24 +114,28 @@ int main(void)
   MX_DMA_Init();
   MX_TIM2_Init();
   MX_TIM3_Init();
-  /* USER CODE BEGIN 2 */
 
-  // TODO: Start TIM3 in PWM mode on channel 3
+/* USER CODE BEGIN 2 */
+// TODO: Start TIM3 in PWM mode on channel 3
+HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_3);
 
+// TODO: Start TIM2 in Output Compare (OC) mode on channel 1.
+HAL_TIM_OC_Start(&htim2, TIM_CHANNEL_1);
+__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, TIM2_Ticks);
 
-  // TODO: Start TIM2 in Output Compare (OC) mode on channel 1.
+// TODO: Start DMA in IT mode on TIM2->CH1; Source is LUT and Dest is TIM3->CCR3; start with Sine LUT
+HAL_DMA_Start_IT(&hdma_tim2_ch1, (uint32_t)&Sin_LUT, DestAddress, NS) ;
 
+// TODO: Write current waveform to LCD ("Sine")
+init_LCD();
+lcd_command(CLEAR);
+lcd_putstring("Sine");
+delay(3000);
 
-  // TODO: Start DMA in IT mode on TIM2->CH1; Source is LUT and Dest is TIM3->CCR3; start with Sine LUT
-
-
-  // TODO: Write current waveform to LCD ("Sine")
-  delay(3000);
-
-  // TODO: Enable DMA (start transfer from LUT to CCR)
-
-
-  /* USER CODE END 2 */
+// TODO: Enable DMA (start transfer from LUT to CCR)
+__HAL_TIM_ENABLE_DMA(&htim2, TIM_DMA_CC1);
+	
+/* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
