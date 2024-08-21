@@ -33,9 +33,9 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 // TODO: Add values for below variables
-#define NS        // Number of samples in LUT
-#define TIM2CLK   // STM Clock frequency
-#define F_SIGNAL  // Frequency of output analog signal
+#define NS 128        // Number of samples in LUT
+#define TIM2CLK 8000000  // STM Clock frequency
+#define F_SIGNAL 50  // Frequency of output analog signal
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -120,8 +120,8 @@ int main(void)
 HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_3);
 
 // TODO: Start TIM2 in Output Compare (OC) mode on channel 1.
+__HAL_TIM_SET_AUTORELOAD(&htim2, TIM2_Ticks);
 HAL_TIM_OC_Start(&htim2, TIM_CHANNEL_1);
-__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, TIM2_Ticks);
 
 // TODO: Start DMA in IT mode on TIM2->CH1; Source is LUT and Dest is TIM3->CCR3; start with Sine LUT
 HAL_DMA_Start_IT(&hdma_tim2_ch1, (uint32_t)&Sin_LUT, DestAddress, NS) ;
