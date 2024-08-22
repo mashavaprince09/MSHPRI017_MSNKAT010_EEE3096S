@@ -362,7 +362,7 @@ void EXTI0_1_IRQHandler(void)
 	// HINT: Consider using C's "switch" function to handle LUT changes
 	static uint32_t lastInterrupt = 0;
 	uint32_t currentInterrupt = HAL_GetTick();
-	if (currentInterrupt - lastInterrupt > 500){ // delay of 500ms
+	if (currentInterrupt - lastInterrupt > 100){ // debounce using a 100ms delay
 		HAL_DMA_Abort_IT(&hdma_tim2_ch1);       // Abort ongoing DMA transfer
 		wave_counter++;
 		if (wave_counter > 2) {
