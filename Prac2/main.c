@@ -23,6 +23,7 @@
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
 #include "stm32f0xx.h"
+#include <lcd_stm32f0.c>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -59,7 +60,7 @@ uint32_t triangle_LUT[NS] =  {0,16,32,48,64,81,97,113,129,145,161,177,193,209,22
 };
 
 uint32_t *waveforms[3] = {Sin_LUT, saw_LUT, triangle_LUT};
-
+int wave_counter=0;
 // TODO: Equation to calculate TIM2_Ticks
 
 uint32_t TIM2_Ticks = TIM2CLK/(F_SIGNAL + NS); // How often to write new LUT value
