@@ -150,15 +150,17 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  // TODO: Poll ADC
+	   adc_value = pollADC(); // Read ADC value from potentiometer
+	   // TODO: Get CRR
+		CCR = ADCtoCCR(adc_value); // Convert ADC value to CCR value
 
-	// TODO: Poll ADC
+		// Update PWM value
+		__HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_3, CCR);
+	  // Wait for delay ms
+		HAL_Delay (period);
 
-
-	// TODO: Get CRR
-  
-
-  // Update PWM value
-	__HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_3, CCR);
+    /* USER CODE END WHILE */
 
     /* USER CODE END WHILE */
 
