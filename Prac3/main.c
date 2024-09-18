@@ -535,9 +535,9 @@ uint32_t pollADC(void){
 
 // Calculate PWM CCR value
 uint32_t ADCtoCCR(uint32_t adc_val){
-  // TODO: Calculate CCR value (val) using an appropriate equation
-
-	//return val;
+ // TODO: Calculate CCR valUE using an equation
+ uint32_t value = (adc_value * 47999) / 4095;
+return value;
 }
 
 void ADC1_COMP_IRQHandler(void)
