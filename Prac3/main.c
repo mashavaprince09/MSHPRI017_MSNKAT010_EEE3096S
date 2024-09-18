@@ -514,9 +514,14 @@ void TIM16_IRQHandler(void)
 
 // TODO: Complete the writeLCD function
 void writeLCD(char *char_in){
+
   delay(3000);
-	
-  
+lcd_command(CLEAR);
+lcd_command(CURSOR_HOME);
+	lcd_command(TWOLINE_MODE);
+	lcd_putstring("EEPROM byte:");
+	lcd_command(LINE_TWO);
+	lcd_putstring(char_in);
 }
 
 // Get ADC value
