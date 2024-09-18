@@ -59,7 +59,13 @@ TIM_HandleTypeDef htim16;
 /* USER CODE BEGIN PV */
 
 // TODO: Define input variables
+uint32_t period = 500;   // Initial frequency period (500 ms, 2 Hz)
+uint32_t lastInterrupt = 0;
+uint32_t adc_value=0;
 
+// The value in decimal are {170, 85, 204, 51, 240, 15}
+static uint8_t binaryArray[6] = {0b10101010, 0b01010101, 0b11001100, 0b00110011, 0b11110000,0b00001111};
+uint16_t currentAddress = 0;
 
 /* USER CODE END PV */
 
