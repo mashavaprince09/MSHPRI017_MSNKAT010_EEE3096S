@@ -59,3 +59,15 @@ change_delay:
 set_pattern_AA:
     MOVS R2, #0xAA
     B write_leds
+freeze:
+    LDR R1, [R0, #0x10]
+    MOVS R3, #0x08
+    ANDS R3, R1
+    BEQ freeze
+    B main_loop
+
+default_mode:
+    LSRS R2, R2, #1
+    CMP R2, #0
+    BNE write_leds
+    MOVS R2, #0x80       @ If all bits shifted out, reset to leftmost LED
