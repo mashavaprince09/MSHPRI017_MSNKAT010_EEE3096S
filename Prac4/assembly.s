@@ -53,3 +53,9 @@ increment_by_2:
     BNE write_leds
     MOVS R2, #0x80       @ If all bits shifted out, reset to leftmost LED
     B write_leds
+change_delay:
+    LDR R6, SHORT_DELAY_CNT
+    B default_mode
+set_pattern_AA:
+    MOVS R2, #0xAA
+    B write_leds
