@@ -46,3 +46,10 @@ main_loop:
     BEQ freeze
 
     B default_mode
+
+increment_by_2:
+    LSRS R2, R2, #2
+    CMP R2, #0
+    BNE write_leds
+    MOVS R2, #0x80       @ If all bits shifted out, reset to leftmost LED
+    B write_leds
